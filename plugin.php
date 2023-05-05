@@ -4,7 +4,7 @@
  * Description: Provides easy mechanism to load scripts asynchronously and on demand.
  * Author: Human Made
  * Author URI: https://humanmade.com
- * Version: 0.0.1
+ * Version: 0.1.0
  */
 
 declare( strict_types=1 );
