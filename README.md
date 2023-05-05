@@ -1,3 +1,22 @@
+<table width="100%">
+	<tr>
+		<td align="left" width="70">
+			<strong>Lazy Load Scripts</strong><br />
+			Provides easy mechanism to load scripts asynchronously and on demand.
+		</td>
+		<td align="right" width="20%">
+		</td>
+	</tr>
+	<tr>
+		<td>
+			A <strong><a href="https://hmn.md/">Human Made</a></strong> project. Maintained by @ivankristianto.
+		</td>
+		<td align="center">
+			<img src="https://hmn.md/content/themes/hmnmd/assets/images/hm-logo.svg" width="100" />
+		</td>
+	</tr>
+</table>
+
 # Lazy Load Scripts
 
 This plugin provides easy mechanism to load scripts asynchronously and on demand, right when the element that requires them is in view. It also provides an easy way to preload scripts & styles.
@@ -20,19 +39,19 @@ This will add the `async` attribute to the printed script tag.
 Themes or plugins can register their lazy-loaded script via the usual `wp_enqueue_script` or `wp_register_script` with additional `wp_script_add_data` call:
 
 ```php
-	wp_enqueue_script( 'my-script-handle', '//cdn.example.com/script.js', [], false, true );
-	wp_script_add_data(
-		'my-script-handle',
-		'lazy',
-		[
-			// Comma-separated list of element selectors.
-			'element_selectors' => '.container',
-			// Optional. Uses same unit as CSS margin.
-			'offset' => '100px',
-			// Optional. When set to true, Add script async attribute tag.
-			'script_async' => false,
-		]
-	);
+wp_enqueue_script( 'my-script-handle', '//cdn.example.com/script.js', [], false, true );
+wp_script_add_data(
+	'my-script-handle',
+	'lazy',
+	[
+		// Comma-separated list of element selectors.
+		'element_selectors' => '.container',
+		// Optional. Uses same unit as CSS margin.
+		'offset' => '100px',
+		// Optional. When set to true, Add script async attribute tag.
+		'script_async' => false,
+	]
+);
 ```
 
 > `.container` is the element selector that requires the script.
@@ -40,7 +59,7 @@ Themes or plugins can register their lazy-loaded script via the usual `wp_enqueu
 If the script requires data to function properly, it can be added exported to the page with `wp_add_inline_script`:
 
 ```php
-	wp_add_inline_script( 'my-script-handle', 'var myScriptData = "something";', 'before' );
+wp_add_inline_script( 'my-script-handle', 'var myScriptData = "something";', 'before' );
 ```
 
 ## Lazily invoke scripts
@@ -52,13 +71,13 @@ This feature will use one of these events to execute: 'keydown', 'mousemove', 'w
 And it only executes once.
 
 ```javascript
-	window.lazyLoadScriptsCallback = window.lazyLoadScriptsCallback || [];
-	window.lazyLoadScriptsCallback.push( [
-		'callback',
-		function () {
-			// Your function that need to execute.
-		},
-	] );
+window.lazyLoadScriptsCallback = window.lazyLoadScriptsCallback || [];
+window.lazyLoadScriptsCallback.push( [
+	'callback',
+	function () {
+		// Your function that need to execute.
+	},
+] );
 ```
 
 ## Preload scripts and styles.
