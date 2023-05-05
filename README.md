@@ -1,4 +1,4 @@
-<table width="100%">
+<table style="width: 100% !important;">
 	<tr>
 		<td align="left" width="70">
 			<strong>Lazy Load Scripts</strong><br />
