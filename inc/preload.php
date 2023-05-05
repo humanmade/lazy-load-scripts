@@ -16,8 +16,7 @@ use HM\Lazy_Load_Scripts as LLS;
  *
  * @return void
  */
-function bootstrap(): void
-{
+function bootstrap(): void {
     add_action('wp_head', __NAMESPACE__ . '\\print_head_preload_links', 5);
 }
 
@@ -30,8 +29,7 @@ function bootstrap(): void
  *
  * @return bool
  */
-function validate_data( $data ): bool
-{
+function validate_data( $data ): bool {
     return $data === true;
 }
 
@@ -42,8 +40,7 @@ function validate_data( $data ): bool
  *
  * @return void
  */
-function print_head_preload_links(): void
-{
+function print_head_preload_links(): void {
     $entries = LLS\collect_entries('styles', 'preload', __NAMESPACE__ . '\\validate_data');
     $assets = wp_styles();
 
@@ -79,10 +76,12 @@ function print_head_preload_links(): void
         printf('<noscript><link rel="stylesheet" href="%s"></noscript>', esc_url_raw($src), "\n");
 
         $inline_style = $assets->get_data($handle, 'after');
-        if ($inline_style ) {
+
+		if ($inline_style ) {
             $assets->print_inline_style($handle, true);
         }
-        // Disable style enqueue from the core.
+
+		// Disable style enqueue from the core.
         wp_dequeue_style($handle);
     }
 }
