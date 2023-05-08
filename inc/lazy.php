@@ -8,7 +8,6 @@ declare ( strict_types = 1 );
 namespace HM\Lazy_Load_Scripts\Lazy;
 
 use HM\Lazy_Load_Scripts as LLS;
-use HM\Lazy_Load_Scripts\Vite;
 
 const SCRIPT_HANDLE = 'lazy-load-scripts';
 
@@ -54,11 +53,9 @@ function get_entries(): array {
  * @return void
  */
 function register_script(): void {
-	Vite\register_asset(
-		dirname( __DIR__ ) . '/assets/dist/',
-		'assets/src/index.js',
-		[ 'handle' => SCRIPT_HANDLE ]
-	);
+	$url = LLS\prepare_asset_url( dirname( __DIR__ ) . '/assets/dist/lls.min.js' );
+
+	wp_register_script( SCRIPT_HANDLE, $url, [], null, true );
 	wp_script_add_data( SCRIPT_HANDLE, 'async', true );
 }
 
@@ -104,9 +101,6 @@ function collect_entries(): void {
 	$before_script = '';
 
 	foreach ( $entries as $script ) {
-		// TODO: Process the dependencies.
-		// TODO: Collect the after scripts.
-
 		$config = wp_parse_args(
 			$script->extra['lazy'],
 			[
@@ -162,7 +156,7 @@ function parse_entry_config( array $entry ): ?array {
 /**
  * Print script
  *
- * @since 0.0.1
+ * @since 0.1.0
  *
  * @return void
  */
