@@ -15,7 +15,7 @@ namespace HM\Lazy_Load_Scripts\Async;
  * @return void
  */
 function bootstrap(): void {
-	add_filter( 'script_loader_tag', __NAMESPACE__ . '\\add_async_attribute', 10, 2 );
+	add_filter( 'script_loader_tag', __NAMESPACE__ . '\\add_async_or_defer_attribute', 10, 2 );
 }
 
 /**
@@ -26,12 +26,18 @@ function bootstrap(): void {
  *
  * @return string Modified script tag if applicable. Otherwise, the original one.
  */
-function add_async_attribute( string $tag, string $handle ): string {
+function add_async_or_defer_attribute( string $tag, string $handle ): string {
 	$wp_scripts = wp_scripts();
 	$item = $wp_scripts->query( $handle );
 
 	if ( ! empty( $item ) && isset( $item->extra['async'] ) && $item->extra['async'] === true ) {
 		$tag = preg_replace( '#(<script)(.*></script>)#', '$1 async$2', $tag );
+		return $tag;
+	}
+
+	if ( ! empty( $item ) && isset( $item->extra['defer'] ) && $item->extra['defer'] === true ) {
+		$tag = preg_replace( '#(<script)(.*></script>)#', '$1 defer$2', $tag );
+		return $tag;
 	}
 
 	return $tag;
