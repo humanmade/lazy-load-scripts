@@ -1,6 +1,6 @@
-<table width="100%" style="width: 100% !important;">
+<table width="100%">
 	<tr>
-		<td align="left" width="70">
+		<td align="left" width="80%">
 			<strong>Lazy Load Scripts</strong><br />
 			Provides easy mechanism to load scripts asynchronously and on demand.
 		</td>
@@ -12,7 +12,7 @@
 			A <strong><a href="https://hmn.md/">Human Made</a></strong> project. Maintained by @ivankristianto.
 		</td>
 		<td align="center">
-			<img src="https://hmn.md/content/themes/hmnmd/assets/images/hm-logo.svg" width="100" />
+			<img src="https://hmn.md/content/themes/hmnmd/assets/images/hm-logo.svg" width="200" />
 		</td>
 	</tr>
 </table>
