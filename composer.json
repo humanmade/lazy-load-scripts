@@ -3,7 +3,7 @@
   "description": "This plugin provides easy mechanism to load scripts asynchronously and on demand.",
   "type": "wordpress-plugin",
   "license": "GPL-2.0+",
-  "minimum-stability":"dev",
+  "minimum-stability": "dev",
   "authors": [
     {
       "name": "Ivan Kristianto",
@@ -15,7 +15,10 @@
   },
   "require-dev": {
     "humanmade/coding-standards": "^1.1.1",
-    "johnpbloch/wordpress": "dev-master"
+    "johnpbloch/wordpress": "dev-master",
+    "phpunit/phpunit": "^8.5",
+    "wp-phpunit/wp-phpunit": "^5.9",
+    "yoast/phpunit-polyfills": "^2.0@dev"
   },
   "scripts": {
     "format": "./vendor/bin/phpcbf -p --standard=phpcs.ruleset.xml ./inc",
