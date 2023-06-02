@@ -18,6 +18,7 @@ use HM\Lazy_Load_Scripts as LLS;
  */
 function bootstrap(): void {
 	add_action( 'wp_head', __NAMESPACE__ . '\\print_head_preload_links', 5 );
+	add_action( 'wp_head', __NAMESPACE__ . '\\print_head_preload_js', 5 );
 }
 
 /**
@@ -83,5 +84,40 @@ function print_head_preload_links(): void {
 
 		// Disable style enqueue from the core.
 		wp_dequeue_style( $handle );
+	}
+}
+
+/**
+ * Print preload js on document head
+ *
+ * @since 0.1.3
+ *
+ * @return void
+ */
+function print_head_preload_js(): void {
+	$entries = LLS\collect_entries( 'script', 'preload', __NAMESPACE__ . '\\validate_data' );
+
+	if ( empty( $entries ) ) {
+		return;
+	}
+
+	$wp_version = get_bloginfo( 'version' );
+
+	foreach ( $entries as $handle => $entry ) {
+		if ( empty( $entry->src ) ) {
+			continue;
+		}
+
+		$src = $entry->src;
+
+		if ( strpos( $src, '/' ) === 0 ) {
+			$src = home_url( $src );
+		}
+
+		if ( $entry->ver === false ) {
+			$src = add_query_arg( 'ver', $wp_version, $src );
+		}
+
+		printf( '<link rel="preload" href="%s" as="script" />%s', esc_url_raw( $src ), "\n" );
 	}
 }
